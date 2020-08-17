@@ -10,8 +10,8 @@ use Yii;
  * @property int $id
  * @property string $login
  * @property string $password
- * @property string $fio
  * @property int $role_id
+ * @property string $fio
  *
  * @property Roles $role
  */
@@ -31,7 +31,7 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['login', 'password', 'fio', 'role_id'], 'required'],
+            [['login', 'password', 'role_id', 'fio'], 'required'],
             [['role_id'], 'integer'],
             [['login', 'password', 'fio'], 'string', 'max' => 255],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role_id' => 'id']],
@@ -47,8 +47,8 @@ class Users extends \yii\db\ActiveRecord
             'id' => 'ID',
             'login' => 'Login',
             'password' => 'Password',
-            'fio' => 'Fio',
             'role_id' => 'Role ID',
+            'fio' => 'Fio',
         ];
     }
 

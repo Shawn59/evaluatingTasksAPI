@@ -17,6 +17,11 @@ class UserController extends Controller
         ];
     }
 
+    protected function generatePasswordHash(string $password, string $login): string
+    {
+        return md5($password . md5(strlen($login) . $login));
+    }
+
     /**
      * Регистрация для партнёра.
      */
@@ -30,6 +35,7 @@ class UserController extends Controller
         $model->setAttributes(Yii::$app->request->bodyParams);
         // клиент
         $model->role_id = 2;
+        $model->password = $this->generatePasswordHash($model->password, $model->login);
 
         if ($model->save()) {
             $result['values'] = [
